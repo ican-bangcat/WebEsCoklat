@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List User</title>
+    <title>DataTable - List Produk</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -49,23 +49,22 @@
 
                         <li class="sidebar-title">Forms &amp; Tables</li>
 
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item has-sub active">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
                                 <span>Produk</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu">
                                 <li class="submenu-item ">
                                     <a href="{{ route('produk') }}">List Produk</a>
                                 </li>
-                                <li class="submenu-item ">
+                                <li class="submenu-item active">
                                     <a href="form-element-input-group.html">Input Produk</a>
                                 </li>
-
                             </ul>
                         </li>
 
-                        <li class="sidebar-item active ">
+                        <li class="sidebar-item  ">
                             <a href="{{ route('user') }}" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                                 <span>List User</span>
@@ -132,14 +131,15 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>DataTable</h3>
-                            <p class="text-subtitle text-muted">For user to check they list</p>
+                            <h3>Edit Produk</h3>
+                            <p class="text-subtitle text-muted">Silahkan edit produk</p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">User</li>
+                                    <li class="breadcrumb-item " aria-current="page"><a href="{{ route('produk') }}">Produk</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Edit Produk</li>
                                 </ol>
                             </nav>
                         </div>
@@ -148,104 +148,73 @@
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            Simple Datatable
-                            @if (session('flash_notification'))
-                                <div class="alert alert-success">
-                                    {{ session('flash_notification.message') }}
-                                </div>
-                            @endif
+                            <h4>Form Edit Produk</h4>
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($users as $user)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->role }}</td>
-                                            <td>
-                                                <!-- Tombol Edit -->
-                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-pencil-square"></i> Edit
-                                                </a>
-                                            
-                                                <!-- Tombol Hapus -->
-                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->id }}">
-                                                    <i class="bi bi-trash"></i> Hapus
-                                                </button>
-                                            
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $user->id }}" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="deleteModalLabel{{ $user->id }}">Konfirmasi Hapus</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                Apakah Anda yakin ingin menghapus user <strong>{{ $user->name }}</strong>?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                                {{-- <tbody>
-                                    <tr>
-                                        <td>Graiden</td>
-                                        <td>vehicula.aliquet@semconsequat.co.uk</td>
-                                        <td>076 4820 8838</td>
-                                        <td>Offenburg</td>
-                                        <td>
-                                            <span class="badge bg-success">Active</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dale</td>
-                                        <td>fringilla.euismod.enim@quam.ca</td>
-                                        <td>0500 527693</td>
-                                        <td>New Quay</td>
-                                        <td>
-                                            <span class="badge bg-success">Active</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nathaniel</td>
-                                        <td>mi.Duis@diam.edu</td>
-                                        <td>(012165) 76278</td>
-                                        <td>Grumo Appula</td>
-                                        <td>
-                                            <span class="badge bg-danger">Inactive</span>
-                                        </td>
-                                    </tr>
-
-                                </tbody> --}}
-                            </table>
+                            <form id="editProdukForm" action="{{ route('produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-group">
+                                    <label for="nama_produk">Nama Produk</label>
+                                    <input type="text" id="nama_produk" name="nama_produk" class="form-control"
+                                        value="{{ $produk->nama_produk }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="harga">Harga</label>
+                                    <input type="number" id="harga" name="harga" class="form-control"
+                                        value="{{ $produk->harga }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="deskripsi">Deskripsi</label>
+                                    <textarea id="deskripsi" name="deskripsi" class="form-control" rows="4">{{ $produk->deskripsi }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stok">Stok</label>
+                                    <input type="number" id="stok" name="stok" class="form-control"
+                                        value="{{ $produk->stok }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="foto_produk">Foto Produk</label>
+                                    <input type="file" id="foto_produk" name="foto_produk" class="form-control">
+                                    @if ($produk->foto_produk)
+                                        <img src="{{ asset('storage/' . $produk->foto_produk) }}" alt="Foto Produk" class="img-thumbnail mt-2" style="width: 150px;">
+                                    @endif
+                                </div>
+                                <div class="mb-3">
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                </div>
+                                <!-- Tombol Update -->
+                                <div class="form-group mt-3">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                                        Update
+                                    </button>
+                                    <a href="{{ route('produk') }}" class="btn btn-secondary">Kembali</a>
+                                </div>
+                            </form>
                         </div>
                     </div>
-
                 </section>
+                
+                <!-- Modal Konfirmasi Update -->
+                <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Edit Produk</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Apakah Anda yakin ingin mengedit produk <strong>{{ $produk->nama_produk }}</strong>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <!-- Formulir ini hanya akan diproses jika tombol Ya diklik -->
+                                <button type="submit" class="btn btn-primary" form="editProdukForm">Ya, Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
 
             {{-- <footer>
@@ -266,14 +235,12 @@
 
     <script src="{{ asset('assets2/vendors/simple-datatables/simple-datatables.js') }}"></script>
     <script>
-        // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
     </script>
 
     <script src="{{ asset('assets2/js/main.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </body>
 
 </html>

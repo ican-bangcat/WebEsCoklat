@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List User</title>
+    <title>DataTable - List Produk</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -49,23 +49,22 @@
 
                         <li class="sidebar-title">Forms &amp; Tables</li>
 
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item has-sub active">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
                                 <span>Produk</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
+                            <ul class="submenu">
+                                <li class="submenu-item active">
                                     <a href="{{ route('produk') }}">List Produk</a>
                                 </li>
-                                <li class="submenu-item ">
+                                <li class="submenu-item">
                                     <a href="form-element-input-group.html">Input Produk</a>
                                 </li>
-
                             </ul>
                         </li>
 
-                        <li class="sidebar-item active ">
+                        <li class="sidebar-item  ">
                             <a href="{{ route('user') }}" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                                 <span>List User</span>
@@ -132,14 +131,14 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>DataTable</h3>
-                            <p class="text-subtitle text-muted">For user to check they list</p>
+                            <h3>List Produk</h3>
+                            <p class="text-subtitle text-muted">Daftar produk yang tersedia</p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">User</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Produk</li>
                                 </ol>
                             </nav>
                         </div>
@@ -147,8 +146,13 @@
                 </div>
                 <section class="section">
                     <div class="card">
-                        <div class="card-header">
-                            Simple Datatable
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4>Data Produk</h4>
+                            <a href="{{ route('produk.create') }}" class="btn btn-primary btn-sm">
+                                Tambah Produk
+                            </a>
+                        </div>
+                        <div class="card-body">
                             @if (session('flash_notification'))
                                 <div class="alert alert-success">
                                     {{ session('flash_notification.message') }}
@@ -160,91 +164,88 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
+                                        <th>Nama Produk</th>
+                                        <th>Harga</th>
+                                        <th>Stok</th>
+                                        <th>Deskripsi</th>
+                                        <th>Foto</th> <!-- New column for Foto -->
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
+                                    @foreach ($produk as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->role }}</td>
+                                            <td>{{ $item->nama_produk }}</td>
+                                            <td>Rp{{ number_format($item->harga, 0, ',', '.') }}</td>
+                                            <td>{{ $item->stok }}</td>
+                                            <td>{{ $item->deskripsi ?? '-' }}</td>
+                                            <td>
+                                                @if ($item->foto_produk)
+                                                    <!-- Check if the product has a photo -->
+                                                    <img src="{{ asset('storage/' . $item->foto_produk) }}"
+                                                        alt="Foto Produk" width="50" height="50">
+                                                @else
+                                                    <span>-</span> <!-- If no photo, show a dash -->
+                                                @endif
+                                            </td>
                                             <td>
                                                 <!-- Tombol Edit -->
-                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">
+                                                <a href="{{ route('produk.edit', $item->id) }}"
+                                                    class="btn btn-primary btn-sm">
                                                     <i class="bi bi-pencil-square"></i> Edit
                                                 </a>
-                                            
+
                                                 <!-- Tombol Hapus -->
-                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->id }}">
+                                                <button type="button" class="btn btn-danger btn-sm"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#deleteModal{{ $item->id }}">
                                                     <i class="bi bi-trash"></i> Hapus
                                                 </button>
-                                            
+
                                                 <!-- Modal Hapus -->
-                                                <div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $user->id }}" aria-hidden="true">
+                                                <div class="modal fade" id="deleteModal{{ $item->id }}"
+                                                    tabindex="-1"
+                                                    aria-labelledby="deleteModalLabel{{ $item->id }}"
+                                                    aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="deleteModalLabel{{ $user->id }}">Konfirmasi Hapus</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                <h5 class="modal-title"
+                                                                    id="deleteModalLabel{{ $item->id }}">
+                                                                    Konfirmasi Hapus</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                Apakah Anda yakin ingin menghapus user <strong>{{ $user->name }}</strong>?
+                                                                Apakah Anda yakin ingin menghapus produk
+                                                                <strong>{{ $item->nama }}</strong>?
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <form
+                                                                    action="{{ route('produk.destroy', $item->id) }}"
+                                                                    method="POST" style="display:inline;">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger">Hapus</button>
                                                                 </form>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                {{-- <tbody>
-                                    <tr>
-                                        <td>Graiden</td>
-                                        <td>vehicula.aliquet@semconsequat.co.uk</td>
-                                        <td>076 4820 8838</td>
-                                        <td>Offenburg</td>
-                                        <td>
-                                            <span class="badge bg-success">Active</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dale</td>
-                                        <td>fringilla.euismod.enim@quam.ca</td>
-                                        <td>0500 527693</td>
-                                        <td>New Quay</td>
-                                        <td>
-                                            <span class="badge bg-success">Active</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nathaniel</td>
-                                        <td>mi.Duis@diam.edu</td>
-                                        <td>(012165) 76278</td>
-                                        <td>Grumo Appula</td>
-                                        <td>
-                                            <span class="badge bg-danger">Inactive</span>
-                                        </td>
-                                    </tr>
-
-                                </tbody> --}}
                             </table>
+
+
                         </div>
                     </div>
-
                 </section>
             </div>
 
@@ -261,18 +262,29 @@
             </footer> --}}
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <script src="{{ asset('assets2/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets2/js/bootstrap.bundle.min.js') }}"></script>
 
     <script src="{{ asset('assets2/vendors/simple-datatables/simple-datatables.js') }}"></script>
     <script>
-        // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
     </script>
 
     <script src="{{ asset('assets2/js/main.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        </script>
+    @endif
 
 </body>
 

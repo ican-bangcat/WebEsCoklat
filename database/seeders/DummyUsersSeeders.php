@@ -13,25 +13,25 @@ class DummyUsersSeeders extends Seeder
      */
     public function run(): void
     {
-        $userData=[
-            [
-              'name'  =>'Admin Ikhsan',
-              'email' => 'admin@gmail.com',
-              'role'=> 'admin',
-              'password'=>bcrypt('admin1234')
+        // $userData=[
+        //     [
+        //       'name'  =>'Admin Ikhsan',
+        //       'email' => 'admin@gmail.com',
+        //       'role'=> 'admin',
+        //       'password'=>bcrypt('admin1234')
 
-            ],
-            [
-              'name'  =>'Amel',
-              'email' => 'amel@gmail.com',
-              'role'=> 'customer',
-              'password'=>bcrypt('12345678')
+        //     ],
+        //     [
+        //       'name'  =>'Amel',
+        //       'email' => 'amel@gmail.com',
+        //       'role'=> 'customer',
+        //       'password'=>bcrypt('12345678')
 
-            ],
-        ];
+        //     ],
+        // ];
 
-        foreach($userData as $key => $val){
-            User::create($val );
-        }
+        // foreach($userData as $key => $val){
+        //     User::create($val );
+        // }
     }
 }

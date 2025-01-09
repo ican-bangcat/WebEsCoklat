@@ -3,12 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Es Coklat Mantap</title>
+    <title>Daftar Menu</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
-    <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -21,16 +19,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="assets/lib/lightbox/assets/css/lightbox.min.css" rel="stylesheet">
-    <link href="assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
+    <link href="{{ asset('assets/lib/lightbox/assets/css/lightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="assets/css/style.css" rel="stylesheet">
-
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -145,96 +141,136 @@
     <!-- Modal Search End -->
 
 
-    <!-- Hero Start -->
-    <div class="container-fluid py-5 mb-5 hero-header">
-        <div class="container py-5">
-            <div class="row g-5 align-items-center">
-                <div class="col-md-12 col-lg-7">
-                    {{-- <h4 class="mb-3 text-warning">100% Organic Foods</h4> --}}
-                    <h1 class="mb-5 display-3 text" style="color:#6C370B ">Es Coklat Mantap</h1>
-                    {{-- <div class="position-relative mx-auto">
-                        <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill"
-                            type="number" placeholder="Search">
-                        <button type="submit"
-                            class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
-                            style="top: 0; right: 25%;">Submit Now</button>
-                            <button type="submit"
-                            class="btn border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
-                            style="top: 0; right: 25%; background-color: #6C370B;">Submit Now</button>
+    <!-- Single Page Header start -->
+    <div class="container-fluid page-header py-5">
+        <h1 class="text-center text-white display-6">Daftar Menu</h1>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="#" class="text-secondary">Beranda</a></li>
+            {{-- <li class="breadcrumb-item"><a href="#" class="text-secondary">Pages</a></li> --}}
+            <li class="breadcrumb-item active text-white">Daftar Menu</li>
+        </ol>
+    </div>
+    <!-- Single Page Header End -->
 
-                    </div> --}}
-                </div>
-                <div class="col-md-12 col-lg-5">
-                    <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
-                        <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active rounded">
-                                <img src="{{ asset('assets/img/coklatDB.jpg') }}" class="img-fluid w-100 rounded"
-                                    alt="First slide">
-                                {{-- <img src="assets/img/coklatDB.jpg"
-                                    class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide"> --}}
-                                {{-- <a href="#" class="btn px-4 py-2 text-white rounded">Fruites</a> --}}
-                            </div>
-                            <div class="carousel-item rounded">
-                                <img src="{{ asset('assets/img/coklatDB2.jpg') }}" class="img-fluid w-100 rounded"
-                                    alt="Second slide">
-                                {{-- <img src="assets/img/coklatDB2.jpg" class="img-fluid w-100 h-100 rounded"
-                                    alt="Second slide"> --}}
-                                {{-- <a href="#" class="btn px-4 py-2 text-white rounded">Vesitables</a> --}}
+
+    <!-- Fruits Shop Start-->
+    <div class="container-fluid fruite py-5">
+        <div class="container py-5">
+            <h2 class="text-center fw-bold mb-4">Daftar Menu</h2>
+            <div class="row g-4">
+                <div class="col-lg-12">
+
+                    <div class="row g-4">
+
+                        <div class="col-lg-9">
+                            <div class="row g-4 justify-content-center">
+                                @foreach ($produk as $item)
+                                    <div class="col-md-6 col-lg-6 col-xl-4">
+                                        <div class="rounded position-relative fruite-item">
+                                            <div class="fruite-img">
+                                                <img src="{{ asset('storage/' . $item->foto_produk) }}"
+                                                    class="img-fluid w-100 rounded-top"
+                                                    alt="{{ $item->nama_produk }}">
+                                            </div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                style="top: 10px; left: 10px;">{{ $item->kategori }}</div>
+                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                <h4>{{ $item->nama_produk }}</h4>
+                                                <p>{{ $item->deskripsi }}</p>
+                                                {{-- <div class="d-flex justify-content-between flex-lg-wrap">
+                                                    <p class="text-dark fs-5 fw-bold mb-0">
+                                                        Rp{{ number_format($item->harga, 0, ',', '.') }}</p>
+                                                    <a href="#"
+                                                        class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                        <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                        cart
+                                                    </a>
+                                                </div> --}}
+                                                <div class="card h-100">
+                                                    <div class="card-body d-flex flex-column justify-content-between">
+                                                        <h5 class="card-title">{{ $item->nama }}</h5>
+                                                        <p class="card-text">{{ $item->deskripsi }}</p>
+                                                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                                                            <p class="text-dark fs-5 fw-bold mb-0">
+                                                                Rp{{ number_format($item->harga, 0, ',', '.') }}
+                                                            </p>
+                                                            <form action="{{ route('cart.add', $item->id) }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                                                <button type="submit" class="btn btn-outline-primary rounded-pill">
+                                                                    <i class="fa fa-shopping-bag me-2"></i> +Keranjang
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                                <div class="col-12">
+                                    <div class="pagination d-flex justify-content-center mt-5">
+                                        <a href="#" class="rounded">&laquo;</a>
+                                        <a href="#" class="active rounded">1</a>
+                                        <a href="#" class="rounded">2</a>
+                                        <a href="#" class="rounded">3</a>
+                                        <a href="#" class="rounded">4</a>
+                                        <a href="#" class="rounded">5</a>
+                                        <a href="#" class="rounded">6</a>
+                                        <a href="#" class="rounded">&raquo;</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselId"
-                            data-bs-slide="prev" style="color:#6C370B ">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"
-                                style="color:#6C370B "></span>
-                            <span class="visually-hidden" style="color:#6C370B ">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselId"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"
-                                style="color:#6C370B "></span>
-                            <span class="visually-hidden" style="color:#6C370B ">Next</span>
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-   
-
-  
+    <!-- Fruits Shop End-->
 
 
+    <!-- Footer Start -->
+    
+    <!-- Footer End -->
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn border-3 border-warning rounded-circle back-to-top"><i
-            class="fa fa-arrow-up"  style="color: #6C370B"></i></a>
+    
+    <!-- Copyright End -->
 
 
-    {{-- <!-- JavaScript Libraries -->
+
+     <!-- Back to Top -->
+     <a href="#" class="btn btn border-3 border-warning rounded-circle back-to-top"><i
+        class="fa fa-arrow-up"  style="color: #6C370B"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/lib/easing/easing.min.js"></script>
-    <script src="assets/lib/waypoints/waypoints.min.js"></script>
-    <script src="assets/lib/lightbox/assets/js/lightbox.min.js"></script>
-    <script src="assets/lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="assets/js/main.js"></script> --}}
-    <!-- JQuery Library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
-    <!-- Bootstrap Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Additional Libraries -->
-    <script src="{{ asset('assets/lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/waypoints/waypoints.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/lightbox/js/lightbox.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/owlcarousel/owl.carousel.min.js') }}"></script>
 
-    <!-- Template Script -->
+    <link href="{{ asset('assets/lib/easing/easing.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/lib/waypoints/waypoints.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/lib/lightbox/assets/css/lightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/lib/owlcarousel/owl.carousel.min.css') }}" rel="stylesheet">
+    <!-- Template Javascript -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2000 // Waktu dalam milidetik
+            });
+        </script>
+    @endif
 </body>
 
 </html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataTable - Mazer Admin Dashboard</title>
+    <title>Edit User</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -151,7 +151,7 @@
                             Edit User
                         </div>
                         <div class="card-body">
-                            <form action="/admin/user/{{ $user->id }}" method="POST" enctype="multipart/form-data">
+                            <form id="editUserForm" action="/admin/user/{{ $user->id }}" method="POST" enctype="multipart/form-data">
                                 @method('PUT')
                                 @csrf
                                 <div class="form-group mt-1 mb-3">
@@ -177,17 +177,40 @@
                                     <span class="text-danger">{{ $errors->first('role') }}</span>
                                 </div>
                                 
-                                
-                                <button type="submit" class="btn btn-primary">UPDATE</button>
+                                <div class="form-group mt-3">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                                        Update
+                                    </button>
+                                    <a href="{{ route('user') }}" class="btn btn-secondary">Kembali</a>
+                                </div>
+                                {{-- <button type="submit" class="btn btn-primary">UPDATE</button> --}}
                             </form>
                             
                         </div>
                     </div>
 
                 </section>
+                <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Edit Produk</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Apakah Anda yakin ingin mengedit user <strong>{{ $user->name }}</strong>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <!-- Formulir ini hanya akan diproses jika tombol Ya diklik -->
+                                <button type="submit" class="btn btn-primary" form="editUserForm">Ya, Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <footer>
+            {{-- <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
                         <p>2021 &copy; Mazer</p>
@@ -197,7 +220,7 @@
                                 href="http://ahmadsaugi.com">A. Saugi</a></p>
                     </div>
                 </div>
-            </footer>
+            </footer> --}}
         </div>
     </div>
     <script src="{{ asset('assets2/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>

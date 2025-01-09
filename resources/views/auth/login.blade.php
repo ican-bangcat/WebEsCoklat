@@ -19,10 +19,12 @@
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
                     <div class="auth-logo">
-                        <img src="{{ asset('assets2/images/logo/logo.png') }}" alt="Logo">
+                        {{-- <img src="{{ asset('assets2/images/logo/logo.png') }}" alt="Logo"> --}}
+                       
+                        <h1>Es Coklat Mantap</h1>
                     </div>
-                    <h1 class="auth-title">Log in.</h1>
-                    <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
+                    <h4 class="auth-title">Login</h4>
+                    <p class="auth-subtitle mb-5">Login dengan data yang kamu masukkan saat Pendaftaran.</p>
                     
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -48,16 +50,16 @@
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Log in</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Login</button>
                     </form>
                     
                     <div class="text-center mt-5 text-lg fs-4">
-                        <p class="text-gray-600">Don't have an account? 
-                            <a href="{{ route('register') }}" class="font-bold">Sign up</a>.
+                        <p class="text-gray-600">Belum punya akun? 
+                            <a href="{{ route('register') }}" class="font-bold">Daftar</a>.
                         </p>
                         @if (Route::has('password.request'))
                             <p>
-                                <a class="font-bold" href="{{ route('password.request') }}">Forgot password?</a>.
+                                <a class="font-bold" href="{{ route('password.request') }}">Lupa Password?</a>.
                             </p>
                         @endif
                     </div>
